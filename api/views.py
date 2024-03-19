@@ -1,6 +1,8 @@
 # from django.shortcuts import render
 # from django.http import HttpResponse
 # from rest_framework import generics, status, viewsets
+from django.shortcuts import redirect
+
 from .models import Tache
 from .serializers import TacheSerializer
 from rest_framework.response import Response
@@ -26,3 +28,6 @@ def viewTache(request):
     taches = Tache.objects.all().order_by('-id')
     serializer = TacheSerializer(taches, many=True)
     return Response(serializer.data)
+
+def viewReact(request) :
+    return redirect('frontend/public')
