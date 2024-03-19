@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.center-table {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.description{
+  font-weight: 400;
+}
+
+.intituleTache{
+  font-size: larger;
+}
+
+.cursor-pointer{
+  cursor : pointer;
+}

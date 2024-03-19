@@ -5,4 +5,4 @@ from api.models import Tache
 class TacheSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tache
-        fields = ('intitule', 'complete')
+        fields = ('intitule', 'complete', 'description')
