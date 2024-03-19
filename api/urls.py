@@ -1,6 +1,6 @@
 from django.urls import path, include
-from .views import viewTache
+from . import views
 
 urlpatterns = [
-    path('home', viewTache, name='viewTache'),
+    path('home', views.viewTache, name='viewTache'),
 ]
