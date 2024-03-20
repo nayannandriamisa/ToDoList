@@ -1,17 +1,17 @@
 import './App.css';
 import React from "react";
-import axios from "axios";
 import Modal from "./components/Modal";
+import axios from "axios";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      complete : false,
-      taskList : [],
-      modal : false,
-      activeTask: {
-        intitule: "",
+      viewCompleted: false,
+      todoList: [],
+      modal: false,
+      activeItem: {
+        title: "",
         description: "",
         complete: false,
       },
@@ -22,95 +22,97 @@ class App extends React.Component {
     this.refreshList();
   }
 
-  refreshList() {
-    axios.get("/api")
-        .then((response) => this.setState({
-          taskList: response.data
-        }))
-        .catch((error) => console.log(error));
-  }
+  refreshList = () => {
+    axios
+      .get("/api/")
+      .then((res) => this.setState({ todoList: res.data }))
+      .catch((err) => console.log(err));
+  };
 
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
 
-  addTask(tache) {
-      this.toggle();
-      if (tache.id) {
-          axios.put(`/api/${tache.id}/`, tache)
-              .then((response) => this.refreshList());
-          return;
-      }
-      axios.post("/api", tache)
-          .then((response) => this.refreshList());
-  }
+  handleSubmit = (item) => {
+    this.toggle();
 
-  deleteTask(tache) {
-      axios.delete(`/api/${tache.id}/`)
-          .then((response) => this.refreshList());
-  }
-
-  createTask (){
-    const tache = { title: "", description: "", completed: false };
-
-    this.setState({ activeItem: tache, modal: !this.state.modal });
+    if (item.id) {
+      axios
+        .put(`/api/${item.id}/`, item)
+        .then((res) => this.refreshList());
+      return;
+    }
+    axios
+      .post("/api/", item)
+      .then((res) => this.refreshList());
   };
 
-  editTask (tache) {
-    this.setState({ activeItem: tache, modal: !this.state.modal });
+  handleDelete = (item) => {
+    axios
+      .delete(`/api/${item.id}/`)
+      .then((res) => this.refreshList());
   };
 
+  createItem = () => {
+    const item = { intitule: "", description: "", complete: false };
+
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  };
+
+  editItem = (item) => {
+    this.setState({ activeItem: item, modal: !this.state.modal });
+  };
 
   renderList() {
-    return this.state.taskList.map((tache) => (
-        <tr key={tache.id}>
+      const liste = this.state.todoList;
+        return liste.map((item) => (
+        <tr key={item.id}>
             <th className="col-7">
                 <details>
-                    <summary className="intituleTache">{tache.intitule}</summary>
-                    <p className="description"><u>Description :</u> <br/>{tache.description}</p>
+                    <summary className="intituleTache">{item.intitule}</summary>
+                    <p className="description"><u>Description :</u> <br/>{item.description}</p>
                 </details>
             </th>
-            <th>
-            {tache.complete === true ? (
-                <i className="bi bi-check-square cursor-pointer"/>
+
+            {item.complete === true ? (
+                <th className="col" style={{background:"lime"}}></th>
             ) : (
-                <i className="bi bi-square cursor-pointer"/>
+                <th style={{background:"crimson"}}></th>
             )}
-            </th>
             <th>
                 <button
                     className="btn btn-outline-danger"
-                    onClick={() => this.deleteTask(tache)}>
+                    onClick={() => this.handleDelete(item)}
+                >
                     Supprimer
                 </button>
                 <i
                     className="bi bi-pencil-fill mx-2 cursor-pointer"
-                    onClick={() => this.editTask(tache)}
+                    onClick={() => this.editItem(item)}
                 />
             </th>
         </tr>
-    ))
+    ));
   }
 
     render() {
         return (
             <>
-                <button
-                    className="btn btn-primary btn-lg"
-                    onClick={this.addTask}
-                >
-                    Nouvelle tâche
-                </button>
-                <br/>
-                <div className="container-fluid">
+                <div className="container-fluid center">
+                    <button
+                        className="btn btn-primary btn-lg"
+                        onClick={this.createItem}
+                    >
+                        Nouvelle tâche
+                    </button>
                     <div className="table-responsive center-table">
                         <table className="table table-bordered">
                             <thead>
-                                <tr>
-                                    <th><h4>Intitulé</h4></th>
-                                    <th><h4>Fait</h4></th>
-                                    <th></th>
-                                </tr>
+                            <tr>
+                                <th><h4>Intitulé</h4></th>
+                                <th><h4>Fait</h4></th>
+                                <th></th>
+                            </tr>
                             </thead>
                             <tbody>
                             {this.renderList()}
@@ -118,11 +120,17 @@ class App extends React.Component {
                         </table>
                     </div>
                 </div>
+                {this.state.modal ? (
+                    <Modal
+                        activeItem={this.state.activeItem}
+                        toggle={this.toggle}
+                        onSave={this.handleSubmit}
+                    />
+                ) : null}
             </>
         );
     }
 }
 
 export default App;
-
 

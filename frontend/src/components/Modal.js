@@ -1,88 +1,78 @@
-import React, { Component } from "react";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-} from "reactstrap";
+import React from "react";
+import {Button, Form, FormGroup, Label, Modal, ModalBody, ModalFooter, ModalHeader, Input} from "reactstrap";
 
-export default class CustomModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeItem: this.props.activeItem,
-    };
-  }
-
-  handleChange = (e) => {
-    let { name, value } = e.target;
-
-    if (e.target.type === "checkbox") {
-      value = e.target.checked;
+export default class CustomModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeItem: this.props.activeItem,
+        };
     }
 
-    const activeItem = { ...this.state.activeItem, [name]: value };
+    handleChange(event) {
+        let {name, value} = event.target;
 
-    this.setState({ activeItem });
-  };
+        if (event.target.type === "checkbox") {
+            value = event.target.checked;
+        }
+        const activeItem = { ...this.state.activeItem, [name]: value };
 
-  render() {
-    const { toggle, onSave } = this.props;
+        this.setState({ activeItem });
+    }
 
-    return (
-      <Modal isOpen={true} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Todo Item</ModalHeader>
-        <ModalBody>
-          <Form>
-            <FormGroup>
-              <Label for="todo-title">Title</Label>
-              <Input
-                type="text"
-                id="todo-title"
-                name="title"
-                value={this.state.activeItem.title}
-                onChange={this.handleChange}
-                placeholder="Enter Todo Title"
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="todo-description">Description</Label>
-              <Input
-                type="text"
-                id="todo-description"
-                name="description"
-                value={this.state.activeItem.description}
-                onChange={this.handleChange}
-                placeholder="Enter Todo description"
-              />
-            </FormGroup>
-            <FormGroup check>
-              <Label check>
-                <Input
-                  type="checkbox"
-                  name="completed"
-                  checked={this.state.activeItem.completed}
-                  onChange={this.handleChange}
-                />
-                Completed
-              </Label>
-            </FormGroup>
-          </Form>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            color="success"
-            onClick={() => onSave(this.state.activeItem)}
-          >
-            Save
-          </Button>
-        </ModalFooter>
-      </Modal>
-    );
-  }
+    render() {
+        const {toggle, onSave} = this.props;
+
+        return(
+            <Modal isOpen={true} toggle={toggle}>
+                <ModalHeader toggle={toggle}>
+                    Nouvelle tâche
+                </ModalHeader>
+                <ModalBody>
+                    <Form>
+                        <FormGroup>
+                            <Label for={"intitule"}>Intitulé :</Label>
+                            <Input
+                                type="text"
+                                id="intitule"
+                                name="intitule"
+                                value={this.state.activeItem.intitule}
+                                onChange={this.handleChange}
+                                placeholder="Saisissez l'intitulé de la tâche"
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for={"description"}>Description :</Label>
+                            <Input
+                                type="text"
+                                id="description"
+                                name="description"
+                                value={this.state.activeItem.description}
+                                onChange={this.handleChange}
+                                placeholder="Saisissez une description de la tâche"
+                            />
+                        </FormGroup>
+                        <FormGroup check>
+                            <Label check>
+                                <Input
+                                  type="checkbox"
+                                  name="complete"
+                                  checked={this.state.activeItem.complete}
+                                  onChange={this.handleChange}
+                                />
+                                Fait
+                            </Label>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+                <ModalFooter>
+                    <Button
+                        onClick={() => onSave(this.state.activeItem)}
+                    >
+                    Enregistrer
+                    </Button>
+                </ModalFooter>
+            </Modal>
+        );
+    }
 }
