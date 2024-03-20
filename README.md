@@ -25,5 +25,5 @@ Quand les serveurs se sont bien lancés, on accède au projet depuis un navigate
 ### Précisions
 Je n'ai pu développer que les fonctionnalités d'affichage et de suppression des tâches.  
 Pour la création et la modification, pour l'instant ces fonctionnalités retournent une erreur, donc j'ai eu recours à l'interface proposée par Django REST Framework (accessible depuis l'url <code>http://localhost:8000/api</code>) afin de pouvoir tester l'application.  
-J'ai essayé de fournir un projet fonctionnel et conforme au cdc mais j'ai eu du mal avec quelques erreurs retournées, cependant ce projet m'a permis d'apprendre énormément sur Django et React.js.
+J'ai essayé de fournir un projet fonctionnel et conforme au cdc mais j'ai eu du mal avec certaines erreurs qui m'ont pris beaucoup de temps, cependant ce projet m'a permis d'apprendre énormément sur le framework  Django et la bibliotèque React.js.
 
