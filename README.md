@@ -4,6 +4,5 @@ Test technique dans le cadre d'une candidature pour un stage en tant que dévelo
 
 
 ## Requirements  
-- Git & Github Account
-- NPM (Node Package Manager)
-- A text-editor
+- Python
+- Node Package Manager
