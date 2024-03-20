@@ -8,8 +8,10 @@ Test technique dans le cadre d'une candidature pour un stage en tant que dévelo
 - Node Package Manager
 
 ## Lancement du projet
-Une fois le projet cloné, il faut accéder au projet et lancer les commandes suivantes dans un terminal: 
+Une fois le projet cloné, il faudra accéder au projet avec les commandes suivantes à éxécuter dans un terminal: 
 ```
+git clone https://github.com/nayannandriamisa/test_technique_imperiatec.git
+cd test_technique_imperiatec
 python manage.py runserver
 ```
 Dans un autre terminal:
