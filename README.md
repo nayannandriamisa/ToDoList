@@ -1,5 +1,5 @@
 # Apprentissage de Django et React.JS
-Application web de gestion d'une liste de tâches.  
+Projet personnel d'application web de gestion d'une liste de tâches dans le cadre de l'apprentissage des outils Django et React.JS.  
 <hr>
     
 ## Requirements  
