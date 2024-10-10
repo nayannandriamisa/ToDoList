@@ -1,4 +1,4 @@
-# Test technique Imperiatec
+# Apprentissage de Django et React.JS
 Application web de gestion d'une liste de tâches.  
 <hr>
     
